@@ -274,4 +274,52 @@ cat data.txt | base64 -d | tr ' ' '\n' | awk 'NR==4'
 
 The password for the next level is stored in the file data.txt, where all lowercase (a-z) and uppercase (A-Z) letters have been rotated by 13 positions
 
+To solve this and apply the rotation, we can use an online tool or use "tr"
+
+If we cat out the rotated content from data.txt, the result is:
+
+```
+cat data.txt
+# The result is
+Gur cnffjbeq vf WIAOOSFzMjXXBC0KoSKBbJ8puQm5lIEi
+```
+We can see that the first letter in the text is "G", so we'll start from there
+
+With tr we can replace characters for those we specify, like this:
+```
+cat data.txt | tr '[G-ZA-Fg-za-f]' '[T-ZA-St-za-s]' | awk 'NF{print $NF}'
+```
+the output from that command is: 
+```
+JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
+```
+**Password for the next level =** JVNBBFSmZwKKOP0XbFXOoW8chDz5yVRv
+
+
+## Level 12
+
+The password for the next level is stored in the file data.txt, which is a hexdump of a file that has been repeatedly compressed. For this level it may be useful to create a directory under /tmp in which you can work using mkdir. For example: mkdir /tmp/myname123. Then copy the datafile using cp, and rename it using mv (read the manpages!)
+
+The hexadecimal dump of a compressed file could be turn back to normal with the use of "xxd" with the flag -r to revert the hexadecimal conversion and then be redirected to another file wich we will keep on using. Like this:
+
+```
+xxd -r data.txt > data
+```
+
+the out put is now the compressed file that has been compressed multiple times.
+
+using "file" to see the file type using the magick numbers in the file, we see that it is a gzip compressed file.
+
+```
+> file data
+data: gzip compressed data, was "data2.bin", last modified: Sat Dec  3 08:13:49 2022, max compression, from Unix, original size modulo 2^32 580
+```
+As the file has been compressed multiple times, we will create a bash script that will help us decompress it untill we're left with the non compressed file.
+
+### Creating the script
+
+For the script we need to create a loop that will do the repetitive job of decompressing this file, and we also need to know the name of the newly decompressed file
+
+to decompress we'll use 7z
+
 
