@@ -322,4 +322,28 @@ For the script we need to create a loop that will do the repetitive job of decom
 
 to decompress we'll use 7z
 
+### Script Explanation 
+
+On this script we first declare a variable called "name_decompressed" to store the output of the console command that determines the name of the next file to be decompressed.
+
+once we 
+```
+#!/bin/bash
+
+name_decompressed=$(7z l content.gzip | grep 'Name' -A 2 | tail -n 1 | awk 'NF{print $NF}')
+7z x content.gzip > /dev/null 2>&1
+
+while true; do
+	7z l $name_decompressed > /dev/null 2>&1
+
+	if [ "$(echo $?)" == "0" ]; then
+		decompressed_next=$(7z l $name_decompressed | grep "Name" -A 2 | tail -n 1 | awk 'NF{print $NF}')
+		7z x $name_decompressed > /dev/null 2>&1 && name_decompressed=$decompressed_next
+	else
+		cat $name_decompressed | awk 'NF{print $NF}' && rm data*
+		exit 1
+	fi
+done
+```
+
 
