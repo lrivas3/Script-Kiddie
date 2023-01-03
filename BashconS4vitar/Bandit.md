@@ -541,6 +541,12 @@ with this key copied, we create a directory under /tmp/ with the command:
 mktemp -d
 `````
 
+and go to that directory.
+
+`````
+cd !$
+`````
+
 after that we paste the key in a file named id_rsa and we use it as an identity file to connect as bandit17
 
 `````
@@ -627,4 +633,49 @@ There is a setuid binary in the homedirectory that does the following: it makes 
 
 NOTE: Try connecting to your own network daemon to see if it works as you think
 
-WE LEFT HERE!!
+For this we connected from both sides.
+
+First we listened on pot 5757 with:
+
+````
+nc -nlvp 5757
+
+# output
+
+Listening on 0.0.0.0 5757
+````
+Then from the other side, we execute ./suconnect 
+
+````
+./suconnect 5757
+````
+output from the other side of the connection
+
+````
+# output
+connection received on 127.0.0.1 54526
+````
+Now, if we send the password for this level on this side, the other side will copare it and send the password for the next level if the password we send and the one from the current level match.
+
+**setuid  binary side**
+````
+Read: VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+Password matches, sending next password
+````
+
+**Listening side** 
+````
+# password we sent:
+VxCazJaVykI6W36BkBU0mJTCM8rR95XT
+# password received from setuid binary side
+NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+````
+
+**password for next level =** NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
+
+## Level 21
+
+A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
+
+
+
