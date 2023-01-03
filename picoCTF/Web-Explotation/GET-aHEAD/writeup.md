@@ -1,4 +1,6 @@
-# Description
+# GET aHEAD
+
+## Description
 Find the flag being held on this server to get ahead of the competition http://mercury.picoctf.net:21939/
 
 the title sugests that we this has something to do with the GET http method, if we take a look at 
