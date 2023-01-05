@@ -49,7 +49,7 @@ If we take a look at the License, it appears to be a base64 encoded string. This
 we can decode it with:
 
 ```
-echo "cGljb0NURnt0aGVfbTN0YWRhdGFfMXNfbW9kaWZpZWR9" | base64 -d
+exiftool cat.jpg | grep "License" | awk 'NF{print $NF}' | base64 -d ; echo ''
 
 # output
 
