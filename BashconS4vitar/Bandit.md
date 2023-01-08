@@ -675,7 +675,16 @@ NvEJF7oVjkddltPSrdKEFOllh9V1IBcq
 
 ## Level 21
 
+### Description
+
 A program is running automatically at regular intervals from cron, the time-based job scheduler. Look in /etc/cron.d/ for the configuration and see what command is being executed.
 
+### Solution
+
+Cron is a Linux job scheduler that is used to setup tasks to run periodically at a fixed date or interval.
+
+if we inspect the folder given to us in the description (/etc/cron.d), we see that there are some cron jobs in there and we have read and execute privileges (755)
+
+**password for next level =** WdDozAdTM2z9DiFEQ2mGlwngMfj4EZff
 
 
